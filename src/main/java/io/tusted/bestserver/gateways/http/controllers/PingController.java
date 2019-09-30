@@ -1,4 +1,4 @@
-package io.tusted.bestserver.gateways.http;
+package io.tusted.bestserver.gateways.http.controllers;
 
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;

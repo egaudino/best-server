@@ -8,6 +8,9 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -27,6 +30,17 @@ public class ServerMongoDatabaseGatewayImpl implements ServerDatabaseGateway {
       log.error("Error saving server: {}", server.getHostname());
       throw new MongoException(e.getMessage());
     }
+  }
+
+  @Override
+  public Server update(Server server) {
+    Query query = new Query();
+    query.addCriteria(Criteria.where("hostname").is(server.getHostname()));
+    Update update = new Update();
+    update.set("latency", server.getLatency());
+    log.info("Updating server: {} - Latency: {} ", server.getHostname(), server.getLatency());
+
+    return mongoTemplate.findAndModify(query, update, Server.class);
   }
 
   @Override

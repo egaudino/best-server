@@ -13,7 +13,7 @@ public class CreateServer {
   private final PingServer pingServer;
 
   public Server execute(final Server server) {
-    server.setLatency(pingServer.execute(server.getIpAddress()));
+    server.setLatency(pingServer.execute(server));
     return serverDatabaseGateway.save(server);
   }
 }

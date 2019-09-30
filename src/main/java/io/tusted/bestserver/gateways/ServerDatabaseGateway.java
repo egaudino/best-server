@@ -7,6 +7,8 @@ public interface ServerDatabaseGateway {
 
   Server save(Server server);
 
+  Server update(Server server);
+
   List<Server> findAll();
 
 }
